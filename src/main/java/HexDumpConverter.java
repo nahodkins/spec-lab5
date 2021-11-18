@@ -15,7 +15,6 @@ public class HexDumpConverter {
     private static final String HEX_DUMP_ERROR_MSG = "Failed to create hex dump!";
 
     public static void convertFileToHexDump(File file) {
-        System.out.println(START_PROGRAM_MSG);
         try (InputStream stream = new FileInputStream(file)){
             int memoryAddressValue = 0;
             while (stream.available() > 0) {
@@ -39,6 +38,7 @@ public class HexDumpConverter {
             }
         } catch (IOException e) {
             System.out.println(HEX_DUMP_ERROR_MSG);
+            e.printStackTrace();
         } finally {
             System.out.println(END_OF_THE_PROGRAM_MSG);
         }
