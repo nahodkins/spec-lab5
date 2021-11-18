@@ -3,7 +3,7 @@ import java.util.stream.Collectors;
 
 public class FileCopier {
 
-    private String readFile(File file) {
+    private String readFile(File file) throws FileCopierException {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))){
             return reader.lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
@@ -11,7 +11,7 @@ public class FileCopier {
         }
     }
 
-    private void writeFile(File file, String source) {
+    private void writeFile(File file, String source) throws FileCopierException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(source);
         } catch (IOException e) {
@@ -21,13 +21,14 @@ public class FileCopier {
 
     private File checkDirectoryPresent(String directoryPath) {
         File file = new File(directoryPath);
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
+        File parentFile = file.getParentFile();
+        if (parentFile != null && !parentFile.exists()) {
+            parentFile.mkdirs();
         }
         return file;
     }
 
-    public void copyFiles(String pathFrom, String pathTo) {
+    public void copyFiles(String pathFrom, String pathTo) throws FileCopierException {
         String content = readFile(new File(pathFrom));
         File saveToFile = checkDirectoryPresent(pathTo);
         writeFile(saveToFile, content);

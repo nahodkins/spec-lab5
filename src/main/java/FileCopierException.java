@@ -1,4 +1,4 @@
-public class FileCopierException extends RuntimeException {
+public class FileCopierException extends Exception {
 
     public FileCopierException(Throwable cause) {
         super(cause);
