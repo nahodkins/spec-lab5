@@ -1,5 +1,4 @@
 import java.io.Closeable;
-import java.io.IOException;
 
 public class MyCloseable implements Closeable {
 
